@@ -153,6 +153,8 @@ Each sequence is aligned against its `-n`-1 best matches. Setting `-n 4` causes 
 
 Look at the output diagnostic images. Does the graph look more or less compact? (hint: Lowering `-n` causes alignment clustering that breaks the graph into two components.)
 
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.417fcdf.53439a3.smooth.final.og.lay.draw_multiqc.png)
+
 Check graph statistics. Does this pangenome graph represent better or worse the input sequences than the previously produced graph?
 
     odgi stats -i DRB1_3123.2/*.og -S
@@ -190,6 +192,8 @@ Looking at the alignment plot shows how this works:
 ### Decreasing the minimum pairwise identity `-p` increases sensitivity
 
     pggb -i data/HLA/DRB1-3123.fa.gz -p 70 -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.6
+
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.wfmash.paf.png)
 
 ### A word of caution...
 
