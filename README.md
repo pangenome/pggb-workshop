@@ -201,6 +201,12 @@ Looking at the alignment plot shows how this works:
 
 ![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.wfmash.paf.png)
 
+The graphs look compact relative to other settings, which can be confirmed by counting base pairs in the graph with `odgi stats -S`.
+
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.692a77d.9c6ea4f.smooth.final.viz_multiqc.png)
+
 ### Decreasing the minimum pairwise identity `-p` increases sensitivity
 
 The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. By dropping this very low, we recover mappings that were missed with the default setting of `-p 90`.
