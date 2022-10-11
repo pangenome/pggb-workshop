@@ -16,6 +16,10 @@ In this exercise you learn how to
 
 There are other methods to build these graphs, like the [minigraph-cactus pipeline](https://doi.org/10.1101/2022.10.06.511217). We're presenting `pggb` because of its easy interactive use and flexibility with diverse inputs of various scales.
 
+### Intro slides
+
+[Slides to get us ready.](https://docs.google.com/presentation/d/1aXwZywy0d3_2sjaTbXTr403ns--mVU1RKDu0NtEt5X4/edit#slide=id.p)
+
 ## Getting started
 
 Make sure you have `pggb` and its tools installed.
@@ -88,9 +92,38 @@ We obtain a series of diagnostic images that represent the pangenome alignment. 
 
 First, the 2D layout gives us a view of the total alignment. For small graphs, we can look at the version that shows where specific paths go (`*.draw_multiqc.png`):
 
-![DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-For larger ones, the `*.draw.png` result is usually more legible.
+For larger ones, the `*.draw.png` result is usually more legible, but it lacks path information:
+
+![draw.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.lay.draw.png)
+
+We also get some 1D visualizations. These present the graph as a kind of matrix. Across the x-axis we have nodes of the graph (scaled by length) and across the y-axis we have paths, or sequences, which have been embedded in the graph.
+
+This layout is capable of representing several kinds of information using color.
+
+The default associates a color with each path. This is stable across different runs of `odgi viz`:
+
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png)
+
+We also have a view that shows the "self depth" across the graph.
+In this case there are no looping paths, so the color is always gray=1x.
+
+![viz_depth_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_depth_multiqc.png)
+
+We can look at orientation of paths using two views.
+
+One shows the "position" of each path relative to the graph. It runs light to dark from 0 to path length.
+
+![viz_pos_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_pos_multiqc.png)
+
+A similar view shows inverted regions of paths relative to the graph in red, while the forward orientation in black.
+
+![viz_inv_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_inv_multiqc.png)
+
+And finally, a compressed view shows coverage across the pangenome coordinate space of all paths. It's a kind of heatmap. This helps when we have a lot of paths to consider:
+
+![viz_O_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_O_multiqc.png)
 
 ### Looking at the alignments
 
@@ -99,6 +132,8 @@ How many alignments were executed during the pairwise alignment (take a look at 
     pafplot -s 2000 DRB1_3123.1/*.paf
 
 Now, from outside the container, use a file browser to open images produced by the process. (On ubuntu linux we can use `eog` to view the PNGs in a whole folder: `eog DRB1_3123.1`.)
+
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.wfmash.paf.png)
 
 ### Graph statistics and build process
 
