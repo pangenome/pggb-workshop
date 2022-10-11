@@ -155,6 +155,8 @@ Look at the output diagnostic images. Does the graph look more or less compact? 
 
 ![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.417fcdf.53439a3.smooth.final.og.lay.draw_multiqc.png)
 
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.417fcdf.53439a3.smooth.final.og.viz_multiqc.png)
+
 Check graph statistics. Does this pangenome graph represent better or worse the input sequences than the previously produced graph?
 
     odgi stats -i DRB1_3123.2/*.og -S
@@ -162,6 +164,8 @@ Check graph statistics. Does this pangenome graph represent better or worse the 
 Using `pafplot` we can see how this happens.
 
     pafplot -s 2000 DRB1_3123.2/*.paf
+
+![wfmash.paf.png](https://github.com/pangenome/hprc-workshop/blob/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.wfmash.paf.png)
 
 ### The effect of the minimum match filter `-k`
 
@@ -173,9 +177,17 @@ Try setting a much higher `-k` than the default (`-k 19`):
 
 The graph starts to become "braided". We might say that it is underaligned.
 
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.gz.510a9ad.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.gz.510a9ad.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
+
 We can go lower (try `-k 7` or `-k 0`) or higher (try `-k 79`).
 
     pggb -i data/HLA/DRB1-3123.fa.gz -n 12 -k 0 -t 4 -o DRB1_3123.4
+
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.gz.510a9ad.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.gz.510a9ad.692a77d.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 ### Decreasing mapping segment length `-s` increases sensitivity
 
@@ -191,9 +203,19 @@ Looking at the alignment plot shows how this works:
 
 ### Decreasing the minimum pairwise identity `-p` increases sensitivity
 
+The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. By dropping this very low, we recover mappings that were missed with the default setting of `-p 90`.
+
     pggb -i data/HLA/DRB1-3123.fa.gz -p 70 -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.6
 
+We can see the added mappings in the pafplot.
+
 ![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.wfmash.paf.png)
+
+But the effect on graph topology seems minimal, because the missing mappings are collected by the transitive relationships in the other mappings.
+
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.692a77d.e4629a5.smooth.final.og.lay.draw_multiqc.png)
+
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.692a77d.e4629a5.smooth.final.og.viz_multiqc.png)
 
 ### A word of caution...
 
