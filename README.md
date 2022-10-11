@@ -88,6 +88,8 @@ We obtain a series of diagnostic images that represent the pangenome alignment. 
 
 First, the 2D layout gives us a view of the total alignment. For small graphs, we can look at the version that shows where specific paths go (`*.draw_multiqc.png`):
 
+![DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png)
+
 For larger ones, the `*.draw.png` result is usually more legible.
 
 ### Looking at the alignments
