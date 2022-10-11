@@ -183,6 +183,14 @@ We can resolve this by setting a lower mapping segment length, which affects the
 
     pggb -i data/HLA/DRB1-3123.fa.gz -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.5
 
+Looking at the alignment plot shows how this works:
+
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.wfmash.paf.png)
+
+### Decreasing the minimum pairwise identity `-p` increases sensitivity
+
+    pggb -i data/HLA/DRB1-3123.fa.gz -p 70 -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.6
+
 ### A word of caution...
 
 Note that DRB1-3123 represents a very extreme situation in the human genome---these gene sequences are diverged by up to 20% and lie in the MHC class II region, which is a site of ongoing diversifying selection and frequent incomplete lineage sorting in the primate clade. Parameter settings for whole genomes and chromosomes often are more stringent than those we've tested here (e.g. `-k 79` or even `-k 311` helps to reduce complexity in human satellites).
