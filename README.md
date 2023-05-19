@@ -2,7 +2,9 @@
 
 Erik Garrison, Julian Lucas, Giulio Formenti, Nadolina Brajuka
 
-For the **_HPRC annual meeting workshop_**, October 11, 2022.
+First presented at the **_HPRC annual meeting workshop_**, October 11, 2022.
+
+Second iteration at **_Workshop on Genomics, Český Krumlov_**, May 20, 2023.
 
 ## Learning objectives
 
@@ -18,11 +20,12 @@ There are other methods to build these graphs, like the [minigraph-cactus pipeli
 
 ### Intro slides
 
-[Slides to get us ready.](https://docs.google.com/presentation/d/1aXwZywy0d3_2sjaTbXTr403ns--mVU1RKDu0NtEt5X4/edit#slide=id.p)
+[Slides to get us ready.](https://docs.google.com/presentation/d/1NT-1a3m39JuL-xczeLJBxxQSPsSY9bgF3CQD4fD5Hqg/edit?usp=sharing)
 
 ## Getting started
 
 Make sure you have `pggb` and its tools installed.
+If you're at Evomics2023, this is true. **_You can skip this section!_**
 
 The easiest way to set things up using `docker`.
 
@@ -70,13 +73,31 @@ To normalize the graph and harmonize the allele representation, we use `smoothxg
 
 We can do many things with these graphs. First, we get a number of diagnostic images out of the pipeline, based on the graphs. These give a human interface to the graph models that can help us to understand the alignments at a high level. We're also able to produce variant calls (in `pggb`), using `vg deconstruct`. The graphs from `pggb` can be used as reference systems for short read alignment with `vg giraffe` or long read alignment with `GraphAligner`. Using `odgi` we can use the graphs as reference systems to describe homology relationships between whole genomes.
 
+## Get into the right directory
+
+First, change directory into the workshop data directory.
+
+    cd ~/workshop_materials/pangenomics
+    
+
+You should see `HLA-zoo`. That has our initial data for this workshop.
+See if you can find where the sequence data is in this directory.
+
+## Start a web server for browsing outputs
+
+Let's get a web server running that will let us look at images generated very quickly:
+
+    python -m http.server 8899
+
+You can access this by pointing your web browser at `http://<your_ip>:8899/`, where `<your_ip>` is the ip address of your instance.
+
 ## Build HLA pangenome graphs
 
 The [human leukocyte antigen (HLA)](https://en.wikipedia.org/wiki/Human_leukocyte_antigen) system is a complex of genes on chromosome 6 in humans which encode cell-surface proteins responsible for the regulation of the immune system.
 
 Let's build a pangenome graph from a collection of sequences of the DRB1-3123 gene:
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -n 12 -t 4 -o DRB1_3123.1
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa.gz -n 12 -t 8 -o DRB1_3123.1
 
 Run `pggb` without parameters to get information on the meaning of each parameter:
 
@@ -147,7 +168,7 @@ Do you think the resulting pangenome graph represents the input sequences well? 
 
 What happens if we set a lower `-n`? This parameter determines how many mappings we have.
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -n 4 -t 4 -o DRB1_3123.2
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 4 -t 8 -o DRB1_3123.2
 
 Each sequence is aligned against its `-n`-1 best matches. Setting `-n 4` causes clustering of sequences into groups that are more similar.
 
@@ -173,7 +194,7 @@ Another key parameter is `-k`, which affects the behavior of `seqwish`. This fil
 
 Try setting a much higher `-k` than the default (`-k 19`):
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -n 12 -k 47 -t 4 -o DRB1_3123.3
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 47 -t 8 -o DRB1_3123.3
 
 The graph starts to become "braided". We might say that it is underaligned.
 
@@ -183,7 +204,7 @@ The graph starts to become "braided". We might say that it is underaligned.
 
 We can go lower (try `-k 7` or `-k 0`) or higher (try `-k 79`).
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -n 12 -k 0 -t 4 -o DRB1_3123.4
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t 8 -o DRB1_3123.4
 
 ![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.gz.510a9ad.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
@@ -195,7 +216,7 @@ At the left end of the graphs, we see a kind of "forked tail" motif in the DRB1-
 
 We can resolve this by setting a lower mapping segment length, which affects the behavior of the very first step in the pipeline, `wfmash`'s mapping step (itself based on a heavily modified version of MashMap). This defaults to `-s 5k`. We can use `-s 1k` to guarantee we pick up on smaller homology segments, leading to a more complete alignment.
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.5
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -s 1k -n 12 -k 0 -t 8 -o DRB1_3123.5
 
 Looking at the alignment plot shows how this works:
 
@@ -211,7 +232,7 @@ The graphs look compact relative to other settings, which can be confirmed by co
 
 The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. By dropping this very low, we recover mappings that were missed with the default setting of `-p 90`.
 
-    pggb -i data/HLA/DRB1-3123.fa.gz -p 70 -s 1k -n 12 -k 0 -t 4 -o DRB1_3123.6
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -p 70 -s 1k -n 12 -k 0 -t 8 -o DRB1_3123.6
 
 We can see the added mappings in the pafplot.
 
@@ -233,22 +254,22 @@ Choose another HLA gene from the `data` folder and explore how the statistics of
 
 For example:
 
-    pggb -i data/HLA/B-3106.fa.gz -n 9 -t 8 -o B-3106.1
+    pggb -i HLA-zoo/seqs/B-3106.fa -n 9 -t 8 -o B-3106.1
 
 Or
 
-    pggb -i data/HLA/TAP2-6891.fa.gz -n 11 -t 8 -o TAP2-6891.1
+    pggb -i HLA-zoo/seqs/TAP2-6891.fa -n 11 -t 8 -o TAP2-6891.1
 
 To set `-n`, count the lines in the `.fai` index files. This gives the number of sequences in the input:
 
-    wc -l data/HLA/TAP2-6891.fa.gz.fai
+    wc -l HLA-zoo/ses/TAP2-6891.fa.fai
 
 ## Bonus: LPA pangenome graphs
 
 [Lipoprotein(a) (LPA)](https://en.wikipedia.org/wiki/Lipoprotein(a)) is a low-density lipoprotein variant containing a protein called apolipoprotein(a). Genetic and epidemiological studies have identified lipoprotein(a) as a risk factor for atherosclerosis and related diseases, such as coronary heart disease and stroke.
 
-Try to make LPA pangenome graphs. The input sequences are in `data/LPA/LPA.fa.gz`. Sequences in this locus have a peculiarity: which one? Hint: visualize the alignments and take a look at the graph layout (with `Bandage` and/or in the `.draw_multiqc.png` files).
+Try to make LPA pangenome graphs. The input sequences are in `~/workshop_materials/pggb/data/LPA.fa.gz`. Sequences in this locus have a peculiarity: which one? Hint: visualize the alignments and take a look at the graph layout (with `Bandage` and/or in the `.draw_multiqc.png` files).
 
 Here's a hint:
 
-    pggb -i data/LPA/LPA.fa.gz -n 14 -t 8 -o LPA.1
+    pggb -i ../pggb/data/LPA/LPA.fa.gz -n 14 -t 8 -o LPA.1
