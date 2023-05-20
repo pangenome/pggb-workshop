@@ -97,7 +97,7 @@ The [human leukocyte antigen (HLA)](https://en.wikipedia.org/wiki/Human_leukocyt
 
 Let's build a pangenome graph from a collection of sequences of the DRB1-3123 gene:
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa.gz -n 12 -t 8 -o DRB1_3123.1
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -t 8 -o DRB1_3123.1
 
 Run `pggb` without parameters to get information on the meaning of each parameter:
 
