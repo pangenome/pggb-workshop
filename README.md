@@ -6,6 +6,8 @@ First presented at the **_HPRC annual meeting workshop_**, October 11, 2022.
 
 Second iteration at **_Workshop on Genomics, Český Krumlov_**, May 20, 2023.
 
+Third iteration at **_Workshop on Genomics, Český Krumlov_**, January 13, 2024.
+
 ## Learning objectives
 
 This tutorial builds interactive understanding of the [PanGenome Graph Builder (`pggb`)](https://github.com/pangenome/pggb) command line tool. We'll build some graphs and inspect them to understand how the method works and the effects of some of its key parameters.
@@ -25,7 +27,7 @@ There are other methods to build these graphs, like the [minigraph-cactus pipeli
 ## Getting started
 
 Make sure you have `pggb` and its tools installed.
-If you're at Evomics2023, this is true. **_You can skip this section!_**
+If you're at Evomics2024, this is true. **_You can skip this section!_**
 
 The easiest way to set things up using `docker`.
 
