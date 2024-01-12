@@ -22,7 +22,7 @@ There are other methods to build these graphs, like the [minigraph-cactus pipeli
 
 ### Intro slides
 
-[Slides to get us ready.](https://docs.google.com/presentation/d/1NT-1a3m39JuL-xczeLJBxxQSPsSY9bgF3CQD4fD5Hqg/edit?usp=sharing)
+[Slides to get us ready.](https://docs.google.com/presentation/d/19cFkINdPiftPu8ITIBb43jbfwiVtT3unoYsmc1QxtSo/edit?usp=sharing)
 
 ## Getting started
 
@@ -265,6 +265,86 @@ Or
 To set `-n`, count the lines in the `.fai` index files. This gives the number of sequences in the input:
 
     wc -l HLA-zoo/ses/TAP2-6891.fa.fai
+
+## Yeast pangenome graphs
+
+Now, let's scale up our pangenome building. To do so, we'll work with some of the first long-read based pangenome sequences, from [Yue, JX., Li, J., Aigrain, L. et al. Contrasting evolutionary genome dynamics between domesticated and wild yeasts. Nat Genet 49, 913–924 (2017).](https://doi.org/10.1038/ng.384).
+
+### Just chrV
+
+To go quick, we can start with assemblies of chrV alone. Working with this will be practically interactive.
+
+First, let's get assemblies of chrV.
+
+    wget http://hypervolu.me/~erik/yeast/cerevisiae.chrV.fa.gz
+
+To work with these, we should generate a FASTA index (n.b. `pggb` will complain if you don't):
+
+    samtools faidx cerevisiae.chrV.fa.gz
+
+How many genomes are represented here?
+
+    wc -l cerevisiae.chrV.fa.gz.fai
+    # 7 cerevisiae.chrV.fa.gz.fai
+
+Note that we've used [PanSN naming](https://github.com/pangenome/PanSN-spec), which is a basic model for providing a hierarchical namespace for sequences in a pangenome. It's a bit like directory names, but we use `#` rather than `/`. Let's take a look at the names:
+
+```
+% column -t cerevisiae.chrV.fa.gz.fai
+S288C#1#chrV        583092  14       60  61
+DBVPG6765#1#chrV    576784  592843   60  61
+UWOPS034614#1#chrV  555692  1179261  60  61
+Y12#1#chrV          575802  1744227  60  61
+YPS128#1#chrV       575962  2329641  60  61
+SK1#1#chrV          589812  2915215  60  61
+DBVPG6044#1#chrV    572248  3514876  60  61
+```
+
+The format is sample#hap#contig, where the haplotype is always 1 because these are haploid assemblies, and the contigs are all chrV because all these genomes have homologus versions of chrV.
+
+Running `pggb` on these is very easy, because it detects the PanSN naming and can compute how many genomes are involved (7):
+
+```
+pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.1
+```
+
+Test out the build, look at the outputs.
+
+#### VCF files
+
+We can also generate a VCF file, using S288C as the reference genome:
+
+```
+pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C
+```
+
+The VCF file is written into the output directory.
+
+#### Decomposing complex records
+
+You may see that some of the VCF records are very large.
+These come from large, often nested bubbles.
+These can be decomposed by slightly modifying the command above.
+
+```
+pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C:1000
+```
+
+Now variants greater than 1000bp are decomposed into smaller ones in a second VCF file.
+
+### Whole genome
+
+We can also replicate this process for the entire yeast genome:
+
+```
+wget http://hypervolu.me/~erik/yeast/cerevisiae.pan.fa.gz
+```
+
+Run `pggb` on the whole genome.
+
+What's different about the output graph?
+
+Can you see any rearrangements or translocations?
 
 ## Bonus: LPA pangenome graphs
 
