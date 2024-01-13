@@ -345,8 +345,12 @@ Can you see any rearrangements or translocations?
 
 [Lipoprotein(a) (LPA)](https://en.wikipedia.org/wiki/Lipoprotein(a)) is a low-density lipoprotein variant containing a protein called apolipoprotein(a). Genetic and epidemiological studies have identified lipoprotein(a) as a risk factor for atherosclerosis and related diseases, such as coronary heart disease and stroke.
 
-Try to make LPA pangenome graphs. The input sequences are in `~/workshop_materials/pggb/data/LPA.fa.gz`. Sequences in this locus have a peculiarity: which one? Hint: visualize the alignments and take a look at the graph layout (with `Bandage` and/or in the `.draw_multiqc.png` files).
+Try to make LPA pangenome graphs. The input sequences are in `~/software/.source/pggb/data/LPA/LPA.fa.gz`. Sequences in this locus have a peculiarity: which one? Hint: visualize the alignments and take a look at the graph layout (with `Bandage` and/or in the `.draw_multiqc.png` files).
 
 Here's a hint:
 
-    pggb -i ../pggb/data/LPA/LPA.fa.gz -n 14 -t 8 -o LPA.1
+    pggb -i ~/software/.source/pggb/data/LPA/LPA.fa.gz -t 8 -o LPA.1
+
+This results in a graph which has some underalignment in the key kringle domain repeat.
+How might we fix this, to encourage the motif to collapse into a single representation in the graph?
+(Hint: add `-c 2` to increase mappings, decrease segment length to `-s 2k`, etc.)
