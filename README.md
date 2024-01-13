@@ -116,11 +116,11 @@ We obtain a series of diagnostic images that represent the pangenome alignment. 
 
 First, the 2D layout gives us a view of the total alignment. For small graphs, we can look at the version that shows where specific paths go (`*.draw_multiqc.png`):
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
 For larger ones, the `*.draw.png` result is usually more legible, but it lacks path information:
 
-![draw.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw.png)
+![draw.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw.png)
 
 We also get some 1D visualizations. These present the graph as a kind of matrix. Across the x-axis we have nodes of the graph (scaled by length) and across the y-axis we have paths, or sequences, which have been embedded in the graph.
 
@@ -128,26 +128,26 @@ This layout is capable of representing several kinds of information using color.
 
 The default associates a color with each path. This is stable across different runs of `odgi viz`:
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 We also have a view that shows the "self depth" across the graph.
 In this case there are no looping paths, so the color is always gray=1x.
 
-![viz_depth_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_depth_multiqc.png)
+![viz_depth_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_depth_multiqc.png)
 
 We can look at orientation of paths using two views.
 
 One shows the "position" of each path relative to the graph. It runs light to dark from 0 to path length.
 
-![viz_pos_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_pos_multiqc.png)
+![viz_pos_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_pos_multiqc.png)
 
 A similar view shows inverted regions of paths relative to the graph in red, while the forward orientation in black.
 
-![viz_inv_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_inv_multiqc.png)
+![viz_inv_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_inv_multiqc.png)
 
 And finally, a compressed view shows coverage across the pangenome coordinate space of all paths. It's a kind of heatmap. This helps when we have a lot of paths to consider:
 
-![viz_O_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_O_multiqc.png)
+![viz_O_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_O_multiqc.png)
 
 ### Looking at the alignments
 
@@ -157,7 +157,7 @@ How many alignments were executed during the pairwise alignment (take a look at 
 
 Now, from outside the container, use a file browser to open images produced by the process. (On ubuntu linux we can use `eog` to view the PNGs in a whole folder: `eog DRB1_3123.1`.)
 
-![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.alignments.wfmash.paf.png)
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.1/DRB1-3123.fa.bf3285f.alignments.wfmash.paf.png)
 
 ### Graph statistics and build process
 
@@ -179,15 +179,15 @@ The graph starts to become "braided". We might say that it is underaligned.
 
 ![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 We can go lower (try `-k 7` or `-k 0`) or higher (try `-k 79`).
 
     pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t 8 -o DRB1_3123.3
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 ### Effect of mapping segment length `-s` on graph structure
 
@@ -203,11 +203,11 @@ Setting it much higher can start to reduce sensitivity to small homologies, whic
 
 Increasing `-s` results in a touch of "underalignment". One of the sequences is not completely aligned into the graph, resulting in the appearance of a new graph tip.
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
 This is also visible in the 1D visualizations, to the right-hand side:
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 But, it's worth noting that when running with large eukaryotic genomes rather than this kind of focused example, we often set `-s` higher, sometimes up to `50k`. This of course can result in problems like the one here, but it may make the graph construction much more tractable.
 
@@ -220,13 +220,13 @@ What happens if we set this higher than the default `-p 90`?
 
 We lose mappings, as visible with pafplot:
 
-![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.alignments.wfmash.paf.png)
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.5/DRB1-3123.fa.35d2267.alignments.wfmash.paf.png)
 
 And this is visible in the diagnostic plots, which show that the graph has been broken into isolated components formed by sets of sequences that have >95% pairwise identity:
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.viz_multiqc.png)
 
 ### A word of caution...
 
