@@ -353,4 +353,4 @@ Here's a hint:
 
 This results in a graph which has some underalignment in the key kringle domain repeat.
 How might we fix this, to encourage the motif to collapse into a single representation in the graph?
-(Hint: add `-c 2` to increase mappings, decrease segment length to `-s 2k`, etc.)
+(Hint: add `-c 2` to increase mappings per sequence, decrease segment length to `-s 2k`, etc.)
