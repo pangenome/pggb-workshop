@@ -305,15 +305,18 @@ The VCF file is written into the output directory.
 #### Decomposing complex records
 
 You may see that some of the VCF records are very large.
-These come from large, often nested bubbles.
-These can be decomposed by slightly modifying the command above.
+These come from large variants.
+For instance, if any genome has a deletion relative to the reference used in the VCF file, we'll need to represent all of the non-reference alleles which *don't* have the deletion by their complete sequence.
+Smaller variation can reside "inside" of the top-level variable site.
+To see these variants easily, we need to run a kind of normalization or decomposition process.
+Because this decomposition is a standard step, `pggb` provides a way to do this easily by modifying the VCF output specification like so:
 
 ```
 pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C:10000
 ```
 
 Now variants greater than 10kb are "popped" and not represented in the output (with [`vcfbub`](https://github.com/pangenome/vcfbub)).
-We go into the variants that nest inside of them.
+We decompose variants that "nest" inside of them.
 Variants shorter than 10kb are decomposed by *realigning them to the reference allele* using a tool in vcflib called `vcfwave`.
 This uses [BiWFA](https://github.com/smarco/BiWFA-paper), which can scale to very large alignment pairs in O(score) memory.
 
