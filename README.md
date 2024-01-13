@@ -177,7 +177,7 @@ Try setting a much higher `-k` than the default (`-k 19`):
 
 The graph starts to become "braided". We might say that it is underaligned.
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2024/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
 ![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
