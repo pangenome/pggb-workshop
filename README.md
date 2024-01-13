@@ -70,6 +70,7 @@ These base-level alignments are converted into a graph with `seqwish`. A filter 
 ### Normalizing the graph
 
 To normalize the graph and harmonize the allele representation, we use `smoothxg` to apply a local MSA across all parts of the graph.
+We also run [gfaffix](https://github.com/marschall-lab/GFAffix) to remove redundant bifurcations in the graph (e.g. two paths diverge, but say the same thing).
 
 ### Downstream
 
@@ -115,11 +116,11 @@ We obtain a series of diagnostic images that represent the pangenome alignment. 
 
 First, the 2D layout gives us a view of the total alignment. For small graphs, we can look at the version that shows where specific paths go (`*.draw_multiqc.png`):
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
 For larger ones, the `*.draw.png` result is usually more legible, but it lacks path information:
 
-![draw.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.lay.draw.png)
+![draw.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw.png)
 
 We also get some 1D visualizations. These present the graph as a kind of matrix. Across the x-axis we have nodes of the graph (scaled by length) and across the y-axis we have paths, or sequences, which have been embedded in the graph.
 
@@ -127,68 +128,44 @@ This layout is capable of representing several kinds of information using color.
 
 The default associates a color with each path. This is stable across different runs of `odgi viz`:
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 We also have a view that shows the "self depth" across the graph.
 In this case there are no looping paths, so the color is always gray=1x.
 
-![viz_depth_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_depth_multiqc.png)
+![viz_depth_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_depth_multiqc.png)
 
 We can look at orientation of paths using two views.
 
 One shows the "position" of each path relative to the graph. It runs light to dark from 0 to path length.
 
-![viz_pos_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_pos_multiqc.png)
+![viz_pos_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_pos_multiqc.png)
 
 A similar view shows inverted regions of paths relative to the graph in red, while the forward orientation in black.
 
-![viz_inv_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_inv_multiqc.png)
+![viz_inv_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_inv_multiqc.png)
 
 And finally, a compressed view shows coverage across the pangenome coordinate space of all paths. It's a kind of heatmap. This helps when we have a lot of paths to consider:
 
-![viz_O_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.417fcdf.9c6ea4f.smooth.final.og.viz_O_multiqc.png)
+![viz_O_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og.viz_O_multiqc.png)
 
 ### Looking at the alignments
 
 How many alignments were executed during the pairwise alignment (take a look at the `PAF` output)? Visualize the alignments:
 
-    pafplot -s 2000 DRB1_3123.1/*.paf
+    pafplot -s 2000 DRB1_3123.1/DRB1-3123.fa.bf3285f.alignments.wfmash.paf
 
 Now, from outside the container, use a file browser to open images produced by the process. (On ubuntu linux we can use `eog` to view the PNGs in a whole folder: `eog DRB1_3123.1`.)
 
-![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.gz.510a9ad.wfmash.paf.png)
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.1/DRB1-3123.fa.bf3285f.alignments.wfmash.paf.png)
 
 ### Graph statistics and build process
 
 Use `odgi stats` to obtain the graph length, and the number of nodes, edges, and paths.
 
-    odgi stats -i DRB1_3123.1/*.og -S
+    odgi stats -i DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og -S
 
 Do you think the resulting pangenome graph represents the input sequences well? Check the length and the number of the input sequences to answer this question.
-
-### The effect of haplotype count `-n`
-
-What happens if we set a lower `-n`? This parameter determines how many mappings we have.
-
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 4 -t 8 -o DRB1_3123.2
-
-Each sequence is aligned against its `-n`-1 best matches. Setting `-n 4` causes clustering of sequences into groups that are more similar.
-
-Look at the output diagnostic images. Does the graph look more or less compact? (hint: Lowering `-n` causes alignment clustering that breaks the graph into two components.)
-
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.417fcdf.53439a3.smooth.final.og.lay.draw_multiqc.png)
-
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.417fcdf.53439a3.smooth.final.og.viz_multiqc.png)
-
-Check graph statistics. Does this pangenome graph represent better or worse the input sequences than the previously produced graph?
-
-    odgi stats -i DRB1_3123.2/*.og -S
-
-Using `pafplot` we can see how this happens.
-
-    pafplot -s 2000 DRB1_3123.2/*.paf
-
-![wfmash.paf.png](https://github.com/pangenome/hprc-workshop/blob/main/DRB1_3123.2/DRB1-3123.fa.gz.cff9e6a.wfmash.paf.png)
 
 ### The effect of the minimum match filter `-k`
 
@@ -196,55 +173,60 @@ Another key parameter is `-k`, which affects the behavior of `seqwish`. This fil
 
 Try setting a much higher `-k` than the default (`-k 19`):
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 47 -t 8 -o DRB1_3123.3
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 47 -t 8 -o DRB1_3123.2
 
 The graph starts to become "braided". We might say that it is underaligned.
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.gz.510a9ad.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.gz.510a9ad.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.2/DRB1-3123.fa.bf3285f.e34d4cd.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 We can go lower (try `-k 7` or `-k 0`) or higher (try `-k 79`).
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t 8 -o DRB1_3123.4
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t 8 -o DRB1_3123.3
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.gz.510a9ad.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.gz.510a9ad.692a77d.9c6ea4f.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
-### Decreasing mapping segment length `-s` increases sensitivity
+### Effect of mapping segment length `-s` on graph structure
 
-At the left end of the graphs, we see a kind of "forked tail" motif in the DRB1-3123 graphs.
+Pangenome variation graphs built by `pggb` are based on homology mappings from [`MashMap3`](https://github.com/marbl/MashMap), as implemented in [`wfmash`](https://github.com/waveygang/wfmash).
+The homology maps are built using segments of a fixed size, rather than short k-mers for instance as in `minimap2`, which makes them suitable for quickly finding high-level patterns of homology.
+(The precise base-level alignments are derived by applying a modification of the bidirectional wavefront algorithm, BiWFA, in `wfmash`.)
 
-We can resolve this by setting a lower mapping segment length, which affects the behavior of the very first step in the pipeline, `wfmash`'s mapping step (itself based on a heavily modified version of MashMap). This defaults to `-s 5k`. We can use `-s 1k` to guarantee we pick up on smaller homology segments, leading to a more complete alignment.
+You can think of `-s` as a seed length for the mappings.
+It defaults to 5kb, which testing has shown to provide a good tradeoff for computational efficiency, graph collinearity, and SV breakpoint detection.
+Setting it much higher can start to reduce sensitivity to small homologies, which we can see in the current example:
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -s 1k -n 12 -k 0 -t 8 -o DRB1_3123.5
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -s 10k -t 8 -o DRB1_3123.4
 
-Looking at the alignment plot shows how this works:
+Increasing `-s` results in a touch of "underalignment". One of the sequences is not completely aligned into the graph, resulting in the appearance of a new graph tip.
 
-![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.wfmash.paf.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
-The graphs look compact relative to other settings, which can be confirmed by counting base pairs in the graph with `odgi stats -S`.
+This is also visible in the 1D visualizations, to the right-hand side:
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.gz.db08837.692a77d.9c6ea4f.smooth.final.viz_multiqc.png)
+But, it's worth noting that when running with large eukaryotic genomes rather than this kind of focused example, we often set `-s` higher, sometimes up to `50k`. This of course can result in problems like the one here, but it may make the graph construction much more tractable.
 
-### Decreasing the minimum pairwise identity `-p` increases sensitivity
+### The minimum pairwise identity `-p` of homology mapping
 
-The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. By dropping this very low, we recover mappings that were missed with the default setting of `-p 90`.
+The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. This parameter is given to `wfmash`.
+What happens if we set this higher than the default `-p 90`?
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -p 70 -s 1k -n 12 -k 0 -t 8 -o DRB1_3123.6
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -p 95 -n 12 -t 8 -o DRB1_3123.5
 
-We can see the added mappings in the pafplot.
+We lose mappings, as visible with pafplot:
 
-![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.wfmash.paf.png)
+![wfmash.paf.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.alignments.wfmash.paf.png)
 
-But the effect on graph topology seems minimal, because the missing mappings are collected by the transitive relationships in the other mappings.
+And this is visible in the diagnostic plots, which show that the graph has been broken into isolated components formed by sets of sequences that have >95% pairwise identity:
 
-![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.692a77d.e4629a5.smooth.final.og.lay.draw_multiqc.png)
+![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.lay.draw_multiqc.png)
 
-![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.6/DRB1-3123.fa.gz.362269e.692a77d.e4629a5.smooth.final.og.viz_multiqc.png)
+![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/main/DRB1_3123.5/DRB1-3123.fa.35d2267.eb0f3d3.3a8f1bc.smooth.final.og.viz_multiqc.png)
 
 ### A word of caution...
 

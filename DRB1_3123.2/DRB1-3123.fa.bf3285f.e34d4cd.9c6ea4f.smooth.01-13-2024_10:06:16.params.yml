@@ -1,0 +1,58 @@
+general:
+  input-fasta:        HLA-zoo/seqs/DRB1-3123.fa
+  output-dir:         DRB1_3123.2
+  temp-dir:           DRB1_3123.2
+  resume:             false
+  compress:           false
+  threads:            8
+  poa_threads:        8
+  respect_pansn:      
+wfmash:
+  version:            v0.12.4-9-gb07a7a8
+  segment-length:     5000
+  block-length:       25000
+  map-pct-id:         90
+  n-mappings:         1
+  no-splits:          false
+  sparse-map:         false
+  mash-kmer:          19
+  mash-kmer-thres:    0.001
+  hg-filter-ani-diff: 30
+  exclude-delim:      #
+  no-merge-segments:  false
+seqwish:
+  version:            v0.7.9-3-g75e807c
+  min-match-len:      47
+  sparse-factor:      0
+  transclose-batch:   10000000
+smoothxg:
+  version:            v0.6.8-92-g620d1d4
+  skip-normalization: false
+  n-haplotypes:       12
+  path-jump-max:      0
+  edge-jump-max:      0
+  poa-length-target:  700,900,1100
+  poa-params:         1,19,39,3,81,1
+  poa_padding:        0.001
+  run_abpoa:          false
+  run_global_poa:     false
+  pad-max-depth:      100
+  write-maf:          false
+  consensus-spec:     false
+  consensus-prefix:   Consensus_
+  block-id-min:       .9000
+  block-ratio-min:    0
+odgi:
+  version:            v0.8.3-71-g1e12685c
+  viz:                true
+  layout:             true
+  stats:              false
+gfaffix:
+  version:            v0.1.5b
+  reduce-redundancy:  true
+vg:
+  version:            v1.40.0
+  deconstruct:        false
+reporting:
+  version:            v
+  multiqc:            false
