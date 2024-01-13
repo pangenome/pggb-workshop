@@ -309,10 +309,20 @@ These come from large, often nested bubbles.
 These can be decomposed by slightly modifying the command above.
 
 ```
-pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C:1000
+pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C:10000
 ```
 
-Now variants greater than 1000bp are decomposed into smaller ones in a second VCF file.
+Now variants greater than 10kb are "popped" and not represented in the output (with [`vcfbub`](https://github.com/pangenome/vcfbub)).
+We go into the variants that nest inside of them.
+Variants shorter than 10kb are decomposed by *realigning them to the reference allele* using a tool in vcflib called `vcfwave`.
+This uses [BiWFA](https://github.com/smarco/BiWFA-paper), which can scale to very large alignment pairs in O(score) memory.
+
+Why do we need to do this?
+A few reasons:
+
+- The VCF decomposition of the variation graph built by `vg deconstruct` will represent structural variants in a base-accurate way. This leads to large structural variants being represented by sites with an alternate allele for approximately each haplotype crossing the locus, even if these are only very small differences. Why? Small variants distinguish each allele, leading to multiple representation.
+- SNPs and other small variants nested inside large variants are "lost" from the perspective of VCF records. But, we may want to work with these.
+- The same loss and clumping confusion happens for indel SVs.
 
 ### Whole genome
 
