@@ -67,18 +67,15 @@ We also run [gfaffix](https://github.com/marschall-lab/GFAffix) to remove redund
 
 We can do many things with these graphs. First, we get a number of diagnostic images out of the pipeline, based on the graphs. These give a human interface to the graph models that can help us to understand the alignments at a high level. We're also able to produce variant calls (in `pggb`), using `vg deconstruct`. The graphs from `pggb` can be used as reference systems for short read alignment with `vg giraffe` or long read alignment with `GraphAligner`. Using `odgi` we can use the graphs as reference systems to describe homology relationships between whole genomes.
 
-## Get into the right directory
+## Start a web server for browsing outputs
+
+In another shell, let's set up a system that will make it easy for us to look at the visual outputs of `pggb` in a web browser.
 
 First, change directory into the workshop data directory.
 
     cd ~/workshop_materials/pangenomics
 
-You should see `HLA-zoo`. That has our initial data for this workshop.
-See if you can find where the sequence data is in this directory.
-
-## Start a web server for browsing outputs
-
-In another shell, let's get a web server running that will let us look at images generated very quickly:
+Get a web server running that will let us look at images generated very quickly:
 
     python -m http.server 8899
 
