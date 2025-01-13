@@ -1,12 +1,12 @@
 # Building Pangenome Graphs
 
-Erik Garrison, Julian Lucas, Giulio Formenti, Nadolina Brajuka
+Originally developed by Erik Garrison, Julian Lucas, Giulio Formenti, Nadolina Brajuka.
+Presented at:
 
-First presented at the **_HPRC annual meeting workshop_**, October 11, 2022.
-
-Second iteration at **_Workshop on Genomics, Český Krumlov_**, May 20, 2023.
-
-Third iteration at **_Workshop on Genomics, Český Krumlov_**, January 13, 2024.
+1. **_HPRC annual meeting workshop_, Bethesda**, October 11, 2022.
+2. **_Workshop on Genomics, Český Krumlov_**, May 20, 2023.
+3. **_Workshop on Genomics, Český Krumlov_**, January 13, 2024.
+4. **_Workshop on Genomics, Český Krumlov_**, January 13, 2025.
 
 ## Learning objectives
 
