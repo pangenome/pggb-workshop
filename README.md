@@ -39,20 +39,18 @@ Also make sure you have checked out `pggb` repository:
 
 Note that the Docker image is built for `x86_64` and if you're on an M1 Mac or other platform you will need to use `docker build --target binary -t ${USER}/pggb:20230819064109936a2c .` in the `pggb` repository to run the build build.
 
-Now create a directory to work on for this tutorial:
+For Evomics2025, we have a material directory we can just work in.
 
-    mkdir hprc-workshop
-    cd hprc-workshop
-    cp -r ~/pggb/data .
+    cd ~/workshop_materials/pangenomics
 
 Now we set up a docker interactive session, mounting this directory in our `/root` or `$HOME`.
 
     # run docker with pggb's latest image
     docker run -it -v $(pwd):/root ghcr.io/pangenome/pggb:20230819064109936a2c /bin/bash
     cd /root # change into root's $HOME
-    ls data  # should show our pggb test data
+    ls # should now show workshop materials
 
-We can look at the results from outside of the docker container. That tends to be easier as the image doesn't include things like image viewers.
+We can look at the results from outside of the docker container. To do this, you'll just need to `cd ~/workshop_materials/pangenomics` in another shell. That tends to be easier as the image doesn't include things like image viewers.
 
 ## How does the `pggb` graph build work?
 
@@ -87,11 +85,11 @@ See if you can find where the sequence data is in this directory.
 
 ## Start a web server for browsing outputs
 
-Let's get a web server running that will let us look at images generated very quickly:
+In another shell, let's get a web server running that will let us look at images generated very quickly:
 
     python -m http.server 8899
 
-You can access this by pointing your web browser at `http://<your_ip>:8899/`, where `<your_ip>` is the ip address of your instance.
+You can access this from your laptop by pointing your web browser at `http://<your_ip>:8899/`, where `<your_ip>` is the ip address of your instance.
 
 ## Set `$threads`
 
