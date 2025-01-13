@@ -216,7 +216,7 @@ This is also visible in the 1D visualizations, to the right-hand side:
 
 But, it's worth noting that when running with large eukaryotic genomes rather than this kind of focused example, we often set `-s` higher, sometimes up to `50k`. This of course can result in problems like the one here, but it may make the graph construction much more tractable.
 
-_Note for Evomics2025_: You may notice a slight difference in the plots you're making and those shown here. What is it? How might you try to resolve it? Hint: it's due to the parameters of the alignment, specifically the seed segment length used in wfmash/mashmap.
+_Note for Evomics2025_: You may notice a slight difference in the plots you're making and those shown in previous examples. What is it? How might you try to resolve it? Hint: it's due to the parameters of the alignment, specifically the seed segment length used in wfmash/mashmap, which we've explored here.
 
 ### The minimum pairwise identity `-p` of homology mapping
 
