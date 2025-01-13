@@ -27,17 +27,17 @@ There are other methods to build these graphs, like the [minigraph-cactus pipeli
 ## Getting started
 
 Make sure you have `pggb` and its tools installed.
-If you're at Evomics2025, this is true. **_You can skip this section!_**
+If you're at Evomics2025, **use docker installation as described here**.
 
 The easiest way to set things up using `docker`.
 
-    docker pull ghcr.io/pangenome/pggb:latest
+    docker pull ghcr.io/pangenome/pggb:20230819064109936a2c
 
 Also make sure you have checked out `pggb` repository:
 
     git clone https://github.com/pangenome/pggb.git
 
-Note that the Docker image is built for `x86_64` and if you're on an M1 Mac or other platform you will need to use `docker build --target binary -t ${USER}/pggb:latest .` in the `pggb` repository to run the build build.
+Note that the Docker image is built for `x86_64` and if you're on an M1 Mac or other platform you will need to use `docker build --target binary -t ${USER}/pggb:20230819064109936a2c .` in the `pggb` repository to run the build build.
 
 Now create a directory to work on for this tutorial:
 
@@ -48,8 +48,7 @@ Now create a directory to work on for this tutorial:
 Now we set up a docker interactive session, mounting this directory in our `/root` or `$HOME`.
 
     # run docker with pggb's latest image
-    docker run -it -v $(pwd):/root \
-        ghcr.io/pangenome/pggb:latest /bin/bash
+    docker run -it -v $(pwd):/root ghcr.io/pangenome/pggb:20230819064109936a2c /bin/bash
     cd /root # change into root's $HOME
     ls data  # should show our pggb test data
 
@@ -93,6 +92,12 @@ Let's get a web server running that will let us look at images generated very qu
     python -m http.server 8899
 
 You can access this by pointing your web browser at `http://<your_ip>:8899/`, where `<your_ip>` is the ip address of your instance.
+
+## Set `$threads`
+
+Also, let's set `$threads` to be equal to the number of CPUs you have available. For instance, with 4:
+
+    export threads=4
 
 ## Build HLA pangenome graphs
 
@@ -153,7 +158,7 @@ And finally, a compressed view shows coverage across the pangenome coordinate sp
 
 How many alignments were executed during the pairwise alignment (take a look at the `PAF` output)? Visualize the alignments:
 
-    pafplot -s 2000 DRB1_3123.1/DRB1-3123.fa.bf3285f.alignments.wfmash.paf
+    pafplot -s 2000 DRB1_3123.1/DRB1-3123.fa.a130aa2.alignments.wfmash.paf
 
 Now, from outside the container, use a file browser to open images produced by the process. (On ubuntu linux we can use `eog` to view the PNGs in a whole folder: `eog DRB1_3123.1`.)
 
@@ -163,7 +168,7 @@ Now, from outside the container, use a file browser to open images produced by t
 
 Use `odgi stats` to obtain the graph length, and the number of nodes, edges, and paths.
 
-    odgi stats -i DRB1_3123.1/DRB1-3123.fa.bf3285f.eb0f3d3.9c6ea4f.smooth.final.og -S
+    odgi stats -i DRB1_3123.1/DRB1-3123.fa.a130aa2.417fcdf.9c6ea4f.smooth.final.gfa -S
 
 Do you think the resulting pangenome graph represents the input sequences well? Check the length and the number of the input sequences to answer this question.
 
@@ -210,6 +215,8 @@ This is also visible in the 1D visualizations, to the right-hand side:
 ![viz_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2025/DRB1_3123.4/DRB1-3123.fa.c325321.eb0f3d3.9c6ea4f.smooth.final.og.viz_multiqc.png)
 
 But, it's worth noting that when running with large eukaryotic genomes rather than this kind of focused example, we often set `-s` higher, sometimes up to `50k`. This of course can result in problems like the one here, but it may make the graph construction much more tractable.
+
+_Note for Evomics2025_: You may notice a slight difference in the plots you're making and those shown here. What is it? How might you try to resolve it? Hint: it's due to the parameters of the alignment, specifically the seed segment length used in wfmash/mashmap.
 
 ### The minimum pairwise identity `-p` of homology mapping
 
