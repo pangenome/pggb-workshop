@@ -100,7 +100,7 @@ The [human leukocyte antigen (HLA)](https://en.wikipedia.org/wiki/Human_leukocyt
 
 Let's build a pangenome graph from a collection of sequences of the DRB1-3123 gene:
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -t 8 -o DRB1_3123.1
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -t $threads -o DRB1_3123.1
 
 Run `pggb` without parameters to get information on the meaning of each parameter:
 
@@ -173,7 +173,7 @@ Another key parameter is `-k`, which affects the behavior of `seqwish`. This fil
 
 Try setting a much higher `-k` than the default (`-k 19`):
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 47 -t 8 -o DRB1_3123.2
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 47 -t $threads -o DRB1_3123.2
 
 The graph starts to become "braided". We might say that it is underaligned.
 
@@ -183,7 +183,7 @@ The graph starts to become "braided". We might say that it is underaligned.
 
 We can go lower (try `-k 7` or `-k 0`) or higher (try `-k 79`).
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t 8 -o DRB1_3123.3
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -k 0 -t $threads -o DRB1_3123.3
 
 ![draw_multiqc.png](https://raw.githubusercontent.com/pangenome/hprc-workshop/evomics2025/DRB1_3123.3/DRB1-3123.fa.bf3285f.692a77d.9c6ea4f.smooth.final.og.lay.draw_multiqc.png)
 
@@ -199,7 +199,7 @@ You can think of `-s` as a seed length for the mappings.
 It defaults to 5kb, which testing has shown to provide a good tradeoff for computational efficiency, graph collinearity, and SV breakpoint detection.
 Setting it much higher can start to reduce sensitivity to small homologies, which we can see in the current example:
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -s 10k -t 8 -o DRB1_3123.4
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -n 12 -s 10k -t $threads -o DRB1_3123.4
 
 Increasing `-s` results in a touch of "underalignment". One of the sequences is not completely aligned into the graph, resulting in the appearance of a new graph tip.
 
@@ -216,7 +216,7 @@ But, it's worth noting that when running with large eukaryotic genomes rather th
 The `-p` setting affects the level of pairwise divergence that's accepted in the mapping step. This parameter is given to `wfmash`.
 What happens if we set this higher than the default `-p 90`?
 
-    pggb -i HLA-zoo/seqs/DRB1-3123.fa -p 95 -n 12 -t 8 -o DRB1_3123.5
+    pggb -i HLA-zoo/seqs/DRB1-3123.fa -p 95 -n 12 -t $threads -o DRB1_3123.5
 
 We lose mappings, as visible with pafplot:
 
@@ -238,11 +238,11 @@ Choose another HLA gene from the `data` folder and explore how the statistics of
 
 For example:
 
-    pggb -i HLA-zoo/seqs/B-3106.fa -n 9 -t 8 -o B-3106.1
+    pggb -i HLA-zoo/seqs/B-3106.fa -n 9 -t $threads -o B-3106.1
 
 Or
 
-    pggb -i HLA-zoo/seqs/TAP2-6891.fa -n 11 -t 8 -o TAP2-6891.1
+    pggb -i HLA-zoo/seqs/TAP2-6891.fa -n 11 -t $threads -o TAP2-6891.1
 
 To set `-n`, count the lines in the `.fai` index files. This gives the number of sequences in the input:
 
@@ -287,7 +287,7 @@ The format is sample#hap#contig, where the haplotype is always 1 because these a
 Running `pggb` on these is very easy, because it detects the PanSN naming and can compute how many genomes are involved (7):
 
 ```
-pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.1
+pggb -i cerevisiae.chrV.fa.gz -t $threads -o yeast.chrV.1
 ```
 
 Test out the build, look at the outputs.
@@ -297,7 +297,7 @@ Test out the build, look at the outputs.
 We can also generate a VCF file, using S288C as the reference genome:
 
 ```
-pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C
+pggb -i cerevisiae.chrV.fa.gz -t $threads -o yeast.chrV.2 -V S288C
 ```
 
 The VCF file is written into the output directory.
@@ -312,7 +312,7 @@ To see these variants easily, we need to run a kind of normalization or decompos
 Because this decomposition is a standard step, `pggb` provides a way to do this easily by modifying the VCF output specification like so:
 
 ```
-pggb -i cerevisiae.chrV.fa.gz -t 8 -o yeast.chrV.2 -V S288C:10000
+pggb -i cerevisiae.chrV.fa.gz -t $threads -o yeast.chrV.2 -V S288C:10000
 ```
 
 Now variants greater than 10kb are "popped" and not represented in the output (with [`vcfbub`](https://github.com/pangenome/vcfbub)).
@@ -349,7 +349,7 @@ Try to make LPA pangenome graphs. The input sequences are in `~/software/.source
 
 Here's a hint:
 
-    pggb -i ~/software/.source/pggb/data/LPA/LPA.fa.gz -t 8 -o LPA.1
+    pggb -i ~/software/.source/pggb/data/LPA/LPA.fa.gz -t $threads -o LPA.1
 
 This results in a graph which has some underalignment in the key kringle domain repeat.
 How might we fix this, to encourage the motif to collapse into a single representation in the graph?
