@@ -250,6 +250,8 @@ For example:
 Or
 
     pggb -i HLA-zoo/seqs/TAP2-6891.fa -n 11 -t $threads -o TAP2-6891.1
+    
+*But*, you will likely find problems with these when using the default parameters (hint: wfmash's segment length matters).
 
 To set `-n`, count the lines in the `.fai` index files. This gives the number of sequences in the input:
 
@@ -294,7 +296,7 @@ The format is sample#hap#contig, where the haplotype is always 1 because these a
 Running `pggb` on these is very easy, because it detects the PanSN naming and can compute how many genomes are involved (7):
 
 ```
-pggb -i cerevisiae.chrV.fa.gz -t $threads -o yeast.chrV.1
+pggb -i cerevisiae.chrV.fa.gz -t $threads -o yeast.chrV.1 -n 7
 ```
 
 Test out the build, look at the outputs.
@@ -347,6 +349,31 @@ Run `pggb` on the whole genome.
 What's different about the output graph?
 
 Can you see any rearrangements or translocations?
+
+## Bonus: implicit pangenome with impg
+
+We can do some basic tests to use `impg` on the alignments (PAFs) from our yeast genomes.
+
+First, outside of docker, install it:
+
+    cargo install --git https://github.com/pangenome/impg.git
+    
+You can then expose the files created in the docker container using: `chown -R 1002:1001 yeast.chrV.1`. If you don't do this, you'll see errors about file ownership.
+Now, outside of the docker container, you can extract the subset of the homologies matching any range in any genome:
+
+    impg query -p yeast.chrV.1/cerevisiae.chrV.fa.gz.d1a145e.alignments.wfmash.paf -r S288C#1#chrV:20000-25000
+
+This also works "transitively", with the query collecting and expanding out through matched sequences.
+    
+    impg query -p yeast.chrV.1/cerevisiae.chrV.fa.gz.d1a145e.alignments.wfmash.paf -r S288C#1#chrV:20000-25000 -x
+    
+... but in this case you won't see any differences.
+
+Another fun thing is to extract the subset of the PAF matching these ranges.
+    
+    impg query -p yeast.chrV.1/cerevisiae.chrV.fa.gz.d1a145e.alignments.wfmash.paf -r S288C#1#chrV:20000-25000 -x -P
+    
+In effect, this extracts the prerequisite data for the subgraph matching this region of S288C chrV.
 
 ## Bonus: LPA pangenome graphs
 
