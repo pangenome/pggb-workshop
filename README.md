@@ -29,15 +29,9 @@ There are other methods to build these graphs, like the [minigraph-cactus pipeli
 Make sure you have `pggb` and its tools installed.
 If you're at Evomics2025, **use docker installation as described here**.
 
-The easiest way to set things up using `docker`.
+The easiest way to set things up using `docker`. You'll need to do this if you're at Evomics2025 to ensure that the `pggb` version and dependencies are synchronized with those needed for this tutorial.
 
     docker pull ghcr.io/pangenome/pggb:20230819064109936a2c
-
-Also make sure you have checked out `pggb` repository:
-
-    git clone https://github.com/pangenome/pggb.git
-
-Note that the Docker image is built for `x86_64` and if you're on an M1 Mac or other platform you will need to use `docker build --target binary -t ${USER}/pggb:20230819064109936a2c .` in the `pggb` repository to run the build build.
 
 For Evomics2025, we have a material directory we can just work in.
 
@@ -78,7 +72,6 @@ We can do many things with these graphs. First, we get a number of diagnostic im
 First, change directory into the workshop data directory.
 
     cd ~/workshop_materials/pangenomics
-    
 
 You should see `HLA-zoo`. That has our initial data for this workshop.
 See if you can find where the sequence data is in this directory.
